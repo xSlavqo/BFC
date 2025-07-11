@@ -2,8 +2,8 @@
 from datetime import datetime
 
 class Logger:
-    def __init__(self, filename="bot.log"):
-        self.filename = filename
+    def __init__(self):
+        self.filename = "bot.log"
 
     def _write_log(self, level, message):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
