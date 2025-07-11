@@ -17,9 +17,3 @@ class Logger:
 
     def warning(self, message):
         self._write_log("WARNING", message)
-
-if __name__ == '__main__':
-    logger = Logger()
-    logger.error("To jest przykładowy błąd.")
-    logger.warning("To jest przykładowe ostrzeżenie.")
-    print(f"Zapisano logi do pliku: {logger.filename}")
