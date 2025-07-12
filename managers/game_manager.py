@@ -25,23 +25,32 @@ class GameManager:
                 return True
         return False
 
+    def _activate_window(self, window_title):
+        try:
+            window = gw.getWindowsWithTitle(window_title)[0]
+            if window:
+                if window.isMinimized:
+                    window.restore()
+                window.activate()
+                time.sleep(1)
+                return True
+        except IndexError:
+            self.logger.warning(f"Nie znaleziono okna o tytule '{window_title}'.")
+        return False
+
     def is_game_running(self):
-        return self._is_process_running(self.game_process_name)
+        if self._is_process_running(self.game_process_name):
+            return self._activate_window(self.game_window_title)
+        return False
 
     def is_launcher_running(self):
-        return self._is_process_running(self.launcher_process_name)
+        if self._is_process_running(self.launcher_process_name):
+            return self._activate_window(self.launcher_window_title)
+        return False
 
     def ensure_game_running(self):
-        if self.location_manager.is_in_city():
-            try:
-                game_window = gw.getWindowsWithTitle(self.game_window_title)[0]
-                if game_window:
-                    if game_window.isMinimized:
-                        game_window.restore()
-                    game_window.activate()
-                return True
-            except IndexError:
-                return False
+        if self.is_game_running():
+            return True
 
         if not self.is_launcher_running():
             if not os.path.exists(self.launcher_path):
@@ -50,25 +59,27 @@ class GameManager:
             try:
                 subprocess.Popen([self.launcher_path])
                 time.sleep(10)
+                if not self.is_launcher_running():
+                    self.logger.error("Nie udało się uruchomić launchera w wyznaczonym czasie.")
+                    return False
             except Exception as e:
                 self.logger.error(f"Nie udało się uruchomić launchera: {e}")
                 return False
 
-        if not locate(self.bot, self.start_button_path, threshold=0.8, perform_click=True):
+        if not locate(self.bot, self.start_button_path, perform_click=True):
             self.logger.error("Nie znaleziono przycisku 'Start' w launcherze lub nie udało się w niego kliknąć.")
             return False
 
         for _ in range(12):
-            if self.location_manager.is_in_city():
-                time.sleep(2)
-                return True
             time.sleep(5)
+            if self.is_game_running() and self.location_manager.is_in_city():
+                return True
             
         self.logger.error("Nie udało się załadować widoku miasta w wyznaczonym czasie.")
         return False
 
     def close_game(self):
-        if not self.is_game_running():
+        if not self._is_process_running(self.game_process_name):
             return True
 
         try:
