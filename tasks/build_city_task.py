@@ -13,9 +13,6 @@ class BuildCityTask(BaseTask):
     def _enter_main_building_menu(self):
         th_x, th_y = self.town_hall_coords
         mouse_click(self.bot, th_x, th_y)
-        time.sleep(2)
-
-        # Użycie locator.find
         if not self.locator.find("png/build/enter_upgrade_menu", perform_click=True):
             self.logger.error("Nie znaleziono przycisku wejścia do menu ulepszeń.")
             return False
@@ -24,18 +21,12 @@ class BuildCityTask(BaseTask):
     def _find_and_start_task(self):
         max_search_loops = 10
         for i in range(max_search_loops):
-            time.sleep(3)
-
-            # Użycie locator.find
             if self.locator.find(r"png/build/upgrade.png", perform_click=True):
-                self.logger.warning("Znaleziono i rozpoczęto ulepszanie budynku.")
                 time.sleep(1)
 
                 if i == 0:
-                    self.logger.warning("Pierwsze ulepszenie, klikanie w ratusz.")
                     mouse_click(self.bot, *self.town_hall_coords)
                 else:
-                    self.logger.warning("Kolejne ulepszenie, klikanie w środek ekranu.")
                     screenshot_size = self.bot.screenshot_grabber.get_screenshot().size
                     center_x = screenshot_size[0] / 2
                     center_y = screenshot_size[1] / 2
@@ -49,15 +40,11 @@ class BuildCityTask(BaseTask):
                 self.logger.error("Nie znaleziono przycisku 'Go', aby przejść do następnego budynku.")
                 return False
 
-            time.sleep(2)
-
             if self.locator.find(r"png/build/enter_upgrade_menu", perform_click=True):
                 continue
             elif self.locator.find(r"png/build/is_new_building", perform_click=False):
                 mouse_click(self.bot, 210, 570)
-                time.sleep(1)
                 if self.locator.find(r"png/build/start_new_building", perform_click=True):
-                    self.logger.warning("Znaleziono i rozpoczęto budowę nowego budynku.")
                     self.location_manager.navigate_to_map()
                     return True
                 else:
@@ -76,10 +63,8 @@ class BuildCityTask(BaseTask):
             return False
 
         if not self.ocr_manager.find_text("build"):
-            self.logger.warning("Nie wykryto wolnego budowniczego (lub tekstu 'buduj').")
             return True
 
-        self.logger.warning("Wykryto wolnego budowniczego. Rozpoczynam proces budowy/ulepszania.")
         if not self._enter_main_building_menu():
             return False
 

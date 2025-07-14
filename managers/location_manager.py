@@ -1,6 +1,5 @@
 # managers/location_manager.py
 import time
-from utils.mouse_actions import click as mouse_click
 # Usunięto import 'locate', bo używamy teraz locator'a z instancji bota
 
 class LocationManager:
@@ -11,19 +10,9 @@ class LocationManager:
         self.build_menu_path = r"png/city/build_menu.png"
         self.find_menu_path = r"png/map/find_menu.png"
 
-    def _click_bottom_right_corner(self):
-        """Klikanie w prawy dolny róg w celu zmiany widoku."""
-        full_screenshot = self.bot.screenshot_grabber.get_screenshot()
-        if full_screenshot:
-            screen_width, screen_height = full_screenshot.size
-        else:
-            self.logger.error("Nie udało się pobrać rozmiaru ekranu z laptopa. Używam domyślnych wartości.")
-            screen_width, screen_height = 1920, 1080
-
-        target_x = screen_width - 25
-        target_y = screen_height - 25
-        self.logger.warning(f"Klikanie w prawy dolny róg ({target_x}, {target_y}) na laptopie w celu zmiany widoku.")
-        mouse_click(self.bot, target_x, target_y)
+    def _switch_view(self):
+        """Przełącza widok (miasto/mapa) poprzez naciśnięcie spacji na zdalnym komputerze."""
+        self.remote_client.press_remote('space')
         time.sleep(3)
 
     def is_in_city(self):
@@ -67,7 +56,7 @@ class LocationManager:
 
             if self.is_on_map():
                 self.logger.warning("Jestem na mapie, próba powrotu do miasta...")
-                self._click_bottom_right_corner()
+                self._switch_view()
                 if self.is_in_city():
                     self.logger.warning("Pomyślnie nawigowano do miasta.")
                     return True
@@ -89,7 +78,7 @@ class LocationManager:
 
             if self.is_in_city():
                 self.logger.warning("Jestem w mieście, próba przejścia do mapy...")
-                self._click_bottom_right_corner()
+                self._switch_view()
                 if self.is_on_map():
                     self.logger.warning("Pomyślnie nawigowano do mapy.")
                     return True

@@ -1606,3 +1606,377 @@
 [2025-07-14 23:49:43] [WARNING] Zrzut ekranu pomyślnie pobrany.
 [2025-07-14 23:49:48] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1293, 562, 1367, 641)).
 [2025-07-14 23:49:48] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:49:53] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:49:54] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:49:55] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:49:55] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:49:55] [WARNING] Jestem w mieście, próba przejścia do mapy...
+[2025-07-14 23:49:55] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:49:57] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:49:57] [WARNING] Klikanie w prawy dolny róg (1341, 743) na laptopie w celu zmiany widoku.
+[2025-07-14 23:50:01] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1293, 562, 1367, 641)).
+[2025-07-14 23:50:01] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:01] [WARNING] Pomyślnie nawigowano do mapy.
+[2025-07-14 23:50:01] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:50:01] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:50:01] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:50:02] [WARNING] Gra już działa.
+[2025-07-14 23:50:02] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:50:02] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:07] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:50:08] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:13] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:50:13] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:14] [WARNING] Gra działa, ale nie jesteśmy w mieście. Próbuję nawigować.
+[2025-07-14 23:50:14] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:50:14] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:50:15] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:20] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:50:20] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:25] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:50:25] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:27] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1293, 562, 1367, 641)).
+[2025-07-14 23:50:27] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:27] [WARNING] Jestem na mapie, próba powrotu do miasta...
+[2025-07-14 23:50:27] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:50:27] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:27] [WARNING] Klikanie w prawy dolny róg (1341, 743) na laptopie w celu zmiany widoku.
+[2025-07-14 23:50:32] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:50:32] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:32] [WARNING] Pomyślnie nawigowano do miasta.
+[2025-07-14 23:50:32] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:50:32] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:50:32] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:50:32] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:32] [WARNING] Jestem już w mieście.
+[2025-07-14 23:50:32] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:50:32] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:32] [WARNING] Wykryto wolnego budowniczego. Rozpoczynam proces budowy/ulepszania.
+[2025-07-14 23:50:35] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (653, 422, 713, 489)).
+[2025-07-14 23:50:35] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:40] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (653, 422, 713, 489)).
+[2025-07-14 23:50:41] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:46] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:50:46] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:53] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (910, 608, 1069, 666)).
+[2025-07-14 23:50:53] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:50:59] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (910, 608, 1069, 666)).
+[2025-07-14 23:50:59] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:04] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:51:04] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:05] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1024, 607, 1090, 663)).
+[2025-07-14 23:51:05] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:10] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1024, 607, 1090, 663)).
+[2025-07-14 23:51:11] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:16] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:51:16] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:22] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (575, 347, 634, 414)).
+[2025-07-14 23:51:22] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:27] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (575, 347, 634, 414)).
+[2025-07-14 23:51:27] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:32] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:51:32] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:39] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (910, 608, 1069, 666)).
+[2025-07-14 23:51:39] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:41] [WARNING] Znaleziono i rozpoczęto ulepszanie budynku.
+[2025-07-14 23:51:42] [WARNING] Kolejne ulepszenie, klikanie w środek ekranu.
+[2025-07-14 23:51:42] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:51:43] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:45] [WARNING] Nawigacja do mapy na laptopie...
+[2025-07-14 23:51:45] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1293, 562, 1367, 641)).
+[2025-07-14 23:51:45] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:50] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1293, 562, 1367, 641)).
+[2025-07-14 23:51:50] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:55] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:51:56] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:57] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:51:57] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:57] [WARNING] Jestem w mieście, próba przejścia do mapy...
+[2025-07-14 23:51:57] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:51:58] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:51:58] [WARNING] Klikanie w prawy dolny róg (1341, 743) na laptopie w celu zmiany widoku.
+[2025-07-14 23:52:03] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1293, 562, 1367, 641)).
+[2025-07-14 23:52:03] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:03] [WARNING] Pomyślnie nawigowano do mapy.
+[2025-07-14 23:52:03] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:52:03] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:52:03] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:52:04] [WARNING] Gra już działa.
+[2025-07-14 23:52:04] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:52:04] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:09] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:52:09] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:14] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:52:15] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:16] [WARNING] Gra działa, ale nie jesteśmy w mieście. Próbuję nawigować.
+[2025-07-14 23:52:16] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:52:16] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:52:16] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:21] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:52:21] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:26] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:52:27] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:28] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1293, 562, 1367, 641)).
+[2025-07-14 23:52:28] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:28] [WARNING] Jestem na mapie, próba powrotu do miasta...
+[2025-07-14 23:52:28] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:52:29] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:29] [WARNING] Klikanie w prawy dolny róg (1341, 743) na laptopie w celu zmiany widoku.
+[2025-07-14 23:52:34] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:52:34] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:34] [WARNING] Pomyślnie nawigowano do miasta.
+[2025-07-14 23:52:34] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:52:34] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:52:34] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:52:34] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:34] [WARNING] Jestem już w mieście.
+[2025-07-14 23:52:34] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:52:34] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:39] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:52:39] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:52:39] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:52:40] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:10] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:53:10] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:53:10] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:53:10] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:53:12] [WARNING] Gra już działa.
+[2025-07-14 23:53:12] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:53:12] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:12] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-14 23:53:12] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:53:12] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:53:12] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:53:12] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:12] [WARNING] Jestem już w mieście.
+[2025-07-14 23:53:12] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:53:12] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:17] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:53:17] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:17] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:53:18] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:49] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:53:49] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:53:49] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:53:49] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:53:51] [WARNING] Gra już działa.
+[2025-07-14 23:53:51] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:53:51] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:51] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-14 23:53:51] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:53:51] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:53:51] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:53:51] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:51] [WARNING] Jestem już w mieście.
+[2025-07-14 23:53:51] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:53:52] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:57] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:53:57] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:53:57] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:53:57] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:54:31] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:54:31] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:54:31] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:54:31] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:54:32] [WARNING] Gra już działa.
+[2025-07-14 23:54:32] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:54:32] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:54:32] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-14 23:54:32] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:54:32] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:54:32] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:54:32] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:54:32] [WARNING] Jestem już w mieście.
+[2025-07-14 23:54:32] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:54:32] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:54:38] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:54:38] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:54:38] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:54:39] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:10] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:55:10] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:55:10] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:55:10] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:55:11] [WARNING] Gra już działa.
+[2025-07-14 23:55:11] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:55:11] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:11] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-14 23:55:11] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:55:11] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:55:11] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:55:11] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:11] [WARNING] Jestem już w mieście.
+[2025-07-14 23:55:11] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:55:11] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:16] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:55:17] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:17] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:55:17] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:52] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:55:52] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:55:52] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:55:52] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:55:53] [WARNING] Gra już działa.
+[2025-07-14 23:55:53] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:55:53] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:53] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-14 23:55:53] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:55:53] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:55:53] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:55:53] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:53] [WARNING] Jestem już w mieście.
+[2025-07-14 23:55:53] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:55:53] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:58] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:55:59] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:55:59] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:55:59] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:56:33] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:56:33] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:56:33] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:56:33] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:56:34] [WARNING] Gra już działa.
+[2025-07-14 23:56:34] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:56:34] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:56:34] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-14 23:56:34] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:56:34] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:56:34] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:56:34] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:56:34] [WARNING] Jestem już w mieście.
+[2025-07-14 23:56:34] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:56:34] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:56:39] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:56:39] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:56:39] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:56:40] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:10] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:57:10] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:57:10] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:57:10] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:57:11] [WARNING] Gra już działa.
+[2025-07-14 23:57:11] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:57:11] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:11] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-14 23:57:11] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:57:11] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:57:11] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:57:11] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:11] [WARNING] Jestem już w mieście.
+[2025-07-14 23:57:11] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:57:11] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:16] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:57:16] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:16] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:57:17] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:48] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:57:48] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:57:48] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:57:48] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:57:50] [WARNING] Gra już działa.
+[2025-07-14 23:57:50] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:57:50] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:50] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-14 23:57:50] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:57:50] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:57:50] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:57:50] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:50] [WARNING] Jestem już w mieście.
+[2025-07-14 23:57:50] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:57:51] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:56] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:57:56] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:57:56] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:57:57] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:58:28] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:58:28] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:58:28] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:58:28] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:58:29] [WARNING] Gra już działa.
+[2025-07-14 23:58:29] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:58:29] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:58:29] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-14 23:58:29] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:58:29] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:58:29] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:58:29] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:58:29] [WARNING] Jestem już w mieście.
+[2025-07-14 23:58:29] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:58:29] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:58:35] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:58:35] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:58:35] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:58:35] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:08] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-14 23:59:08] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-14 23:59:08] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-14 23:59:08] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-14 23:59:09] [WARNING] Gra już działa.
+[2025-07-14 23:59:09] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:59:09] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:14] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:59:14] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:19] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:59:19] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:21] [WARNING] Gra działa, ale nie jesteśmy w mieście. Próbuję nawigować.
+[2025-07-14 23:59:21] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:59:21] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:59:21] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:26] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:59:27] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:32] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:59:33] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:34] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1293, 562, 1367, 641)).
+[2025-07-14 23:59:34] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:34] [WARNING] Jestem na mapie, próba powrotu do miasta...
+[2025-07-14 23:59:34] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:59:36] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:36] [WARNING] Klikanie w prawy dolny róg (1341, 743) na laptopie w celu zmiany widoku.
+[2025-07-14 23:59:40] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:59:40] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:40] [WARNING] Pomyślnie nawigowano do miasta.
+[2025-07-14 23:59:40] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-14 23:59:40] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-14 23:59:40] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-14 23:59:40] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:40] [WARNING] Jestem już w mieście.
+[2025-07-14 23:59:40] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:59:40] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:45] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-14 23:59:45] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-14 23:59:45] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-14 23:59:46] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-15 00:00:21] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-15 00:00:21] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-15 00:00:21] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-15 00:00:21] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-15 00:00:22] [WARNING] Gra już działa.
+[2025-07-15 00:00:22] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-15 00:00:22] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-15 00:00:22] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-15 00:00:22] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-15 00:00:22] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-15 00:00:22] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-15 00:00:22] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-15 00:00:22] [WARNING] Jestem już w mieście.
+[2025-07-15 00:00:22] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-15 00:00:22] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-15 00:00:27] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-15 00:00:27] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-15 00:00:27] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: None).
+[2025-07-15 00:00:28] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-15 00:01:02] [WARNING] Nie wykryto wolnego budowniczego (lub tekstu 'buduj').
+[2025-07-15 00:01:02] [WARNING] Zadanie 'build_city' zakończone pomyślnie.
+[2025-07-15 00:01:02] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-15 00:01:02] [WARNING] Sprawdzam, czy gra jest uruchomiona...
+[2025-07-15 00:01:04] [WARNING] Gra już działa.
+[2025-07-15 00:01:04] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-15 00:01:04] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-15 00:01:04] [WARNING] Gra działa i jesteśmy w mieście.
+[2025-07-15 00:01:04] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-15 00:01:04] [WARNING] Nawigacja do miasta na laptopie...
+[2025-07-15 00:01:04] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (1291, 564, 1369, 639)).
+[2025-07-15 00:01:04] [WARNING] Zrzut ekranu pomyślnie pobrany.
+[2025-07-15 00:01:04] [WARNING] Jestem już w mieście.
+[2025-07-15 00:01:04] [WARNING] Pobieram zrzut ekranu z laptopa (bbox: (np.int32(572), np.int32(370), np.int32(638), np.int32(414))).
+[2025-07-15 00:01:04] [WARNING] Zrzut ekranu pomyślnie pobrany.

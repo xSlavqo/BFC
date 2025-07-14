@@ -36,6 +36,7 @@ class Locator:
         for p_file in pattern_files:
             template_rgba = cv2.imread(p_file, cv2.IMREAD_UNCHANGED)
             if template_rgba is None or template_rgba.size == 0:
+                self.logger.error(f"Nie można wczytać pliku wzorca lub jest on pusty: {p_file}")
                 continue
 
             template_gray = cv2.cvtColor(template_rgba[:,:,:3], cv2.COLOR_BGR2GRAY) if len(template_rgba.shape) == 3 else template_rgba
@@ -67,6 +68,7 @@ class Locator:
     def _search_on_screenshot(self, screenshot_pil, patterns_to_check):
         """Przeszukuje podany zrzut ekranu w poszukiwaniu wzorców."""
         if not screenshot_pil:
+            self.logger.error("Otrzymano pusty zrzut ekranu (None). Przeszukiwanie niemożliwe.")
             return None, None, None
 
         screenshot_np = np.array(screenshot_pil.convert('L'))
@@ -92,6 +94,7 @@ class Locator:
         """Główna metoda do znajdowania wzorca z logiką cache."""
         patterns = self._prepare_patterns(pattern_path)
         if not patterns:
+            self.logger.error(f"Nie udało się załadować żadnych prawidłowych wzorców z '{pattern_path}'. Anulowanie wyszukiwania.")
             return None
 
         # Wyszukiwanie w cache
@@ -99,6 +102,10 @@ class Locator:
             cached_region = self.pattern_cache[pattern_path]
             for _ in range(2):
                 screenshot = self.bot.screenshot_grabber.get_screenshot(bbox=cached_region)
+                if not screenshot:
+                    self.logger.error(f"Nie udało się pobrać zrzutu ekranu z regionu cache dla '{pattern_path}'.")
+                    time.sleep(2)
+                    continue
                 val, loc, dims = self._search_on_screenshot(screenshot, patterns)
 
                 if val is not None and val >= threshold:
@@ -108,10 +115,13 @@ class Locator:
                         mouse_click(self.bot, center_x, center_y)
                     return (abs_x, abs_y, dims[0], dims[1])
                 
-                time.sleep(5)
+                time.sleep(2)
 
         # Wyszukiwanie na pełnym ekranie
         screenshot = self.bot.screenshot_grabber.get_screenshot()
+        if not screenshot:
+            self.logger.error(f"Nie udało się pobrać pełnego zrzutu ekranu dla '{pattern_path}'. Anulowanie wyszukiwania.")
+            return None
         val, loc, dims = self._search_on_screenshot(screenshot, patterns)
 
         if val is not None and val >= threshold:

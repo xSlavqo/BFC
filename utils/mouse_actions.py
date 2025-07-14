@@ -5,7 +5,7 @@ import time
 
 # Funkcja click na głównym PC przyjmuje 'bot_instance' jako pierwszy argument
 def click(bot_instance, target_x, target_y):
-    PIXEL_OFFSET = 10
+    PIXEL_OFFSET = 5
     MOVE_DURATION_RANGE = (0.2, 0.6)
     CLICK_DURATION_RANGE = (0.05, 0.15)
 
