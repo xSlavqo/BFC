@@ -1,7 +1,7 @@
 # managers/task_manager.py
 import time
 import random
-from tasks.example_task import ExampleTask
+from tasks.build_city_task import BuildCityTask
 
 class TaskManager:
     def __init__(self, bot):
@@ -14,8 +14,8 @@ class TaskManager:
     def _initialize_tasks(self):
         self.tasks = [
             {
-                "name": "example_task",
-                "task_object": ExampleTask(self.bot),
+                "name": "build_city",
+                "task_object": BuildCityTask(self.bot),
                 "interval": 10,
                 "last_run": 0,
                 "retries_on_fail": 0,
