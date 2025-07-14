@@ -1,19 +1,17 @@
-# tasks/build_city_task.py
+# client/tasks/build_city_task.py
 import time
-from tasks.base_task import BaseTask
-from utils.mouse_actions import click as mouse_click
-# Usunięto import locate, bo używamy self.bot.locator
+from client.tasks.base_task import BaseTask
 
 class BuildCityTask(BaseTask):
     def __init__(self, bot):
         super().__init__(bot)
-        self.locator = bot.locator # Dostęp do instancji Locator'a
+        self.png_locator = bot.png_locator
         self.town_hall_coords = (550, 270)
 
     def _enter_main_building_menu(self):
-        th_x, th_y = self.town_hall_coords
-        mouse_click(self.bot, th_x, th_y)
-        if not self.locator.find("png/build/enter_upgrade_menu", perform_click=True):
+        self.bot.click(*self.town_hall_coords)
+        time.sleep(1)
+        if not self.png_locator.find("png/build/enter_upgrade_menu", perform_click=True):
             self.logger.error("Nie znaleziono przycisku wejścia do menu ulepszeń.")
             return False
         return True
@@ -21,30 +19,36 @@ class BuildCityTask(BaseTask):
     def _find_and_start_task(self):
         max_search_loops = 10
         for i in range(max_search_loops):
-            if self.locator.find(r"png/build/upgrade.png", perform_click=True):
+            if self.png_locator.find(r"png/build/upgrade.png", perform_click=True):
                 time.sleep(1)
-
+                
+                # --- POCZĄTEK PRZYWRÓCONEJ LOGIKI ---
+                # Wykonuje dodatkowe kliknięcie, aby zamknąć okna po ulepszeniu
                 if i == 0:
-                    mouse_click(self.bot, *self.town_hall_coords)
+                    self.bot.click(*self.town_hall_coords)
                 else:
-                    screenshot_size = self.bot.screenshot_grabber.get_screenshot().size
-                    center_x = screenshot_size[0] / 2
-                    center_y = screenshot_size[1] / 2
-                    mouse_click(self.bot, center_x, center_y)
+                    screenshot = self.bot.screenshot_grabber.get_screenshot()
+                    if screenshot:
+                        center_x = screenshot.size[0] / 2
+                        center_y = screenshot.size[1] / 2
+                        self.bot.click(center_x, center_y)
+                # --- KONIEC PRZYWRÓCONEJ LOGIKI ---
 
                 self.location_manager.navigate_to_map()
                 return True
             
-            # Użycie locator.find z regionem
-            if not self.locator.find(r"png/build/go_button", perform_click=True):
+            if not self.png_locator.find(r"png/build/go_button", perform_click=True):
                 self.logger.error("Nie znaleziono przycisku 'Go', aby przejść do następnego budynku.")
                 return False
+            
+            time.sleep(2)
 
-            if self.locator.find(r"png/build/enter_upgrade_menu", perform_click=True):
+            if self.png_locator.find(r"png/build/enter_upgrade_menu", perform_click=True):
                 continue
-            elif self.locator.find(r"png/build/is_new_building", perform_click=False):
-                mouse_click(self.bot, 210, 570)
-                if self.locator.find(r"png/build/start_new_building", perform_click=True):
+            elif self.png_locator.find(r"png/build/is_new_building", perform_click=False):
+                self.bot.click(210, 570)
+                time.sleep(1)
+                if self.png_locator.find(r"png/build/start_new_building", perform_click=True):
                     self.location_manager.navigate_to_map()
                     return True
                 else:
@@ -59,7 +63,6 @@ class BuildCityTask(BaseTask):
 
     def run(self):
         if not self.location_manager.navigate_to_city():
-            self.logger.error("Nie udało się nawigować do miasta.")
             return False
 
         if not self.ocr_manager.find_text("build"):
@@ -68,4 +71,8 @@ class BuildCityTask(BaseTask):
         if not self._enter_main_building_menu():
             return False
 
-        return self._find_and_start_task()
+        if self._find_and_start_task():
+            return True
+        else:
+            self.location_manager.navigate_to_map()
+            return False

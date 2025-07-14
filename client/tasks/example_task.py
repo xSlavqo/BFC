@@ -1,6 +1,6 @@
-# tasks/example_task.py
+# client/tasks/example_task.py (dawniej tasks/example_task.py)
 import random
-from tasks.base_task import BaseTask
+from client.tasks.base_task import BaseTask
 
 class ExampleTask(BaseTask):
     def __init__(self, bot):
@@ -13,10 +13,13 @@ class ExampleTask(BaseTask):
         
         roll = random.randint(1, 4)
         if roll == 1:
+            self.logger.warning("ExampleTask: Zwracam True.")
             return True
         elif roll == 2:
+            self.logger.warning("ExampleTask: Zwracam False.")
             return False
         elif roll == 3:
+            self.logger.warning("ExampleTask: Zwracam pauzę na 20s.")
             return ('pause', 20)
         else:
             self.logger.warning("ExampleTask: Symulacja nawigacji do miasta.")

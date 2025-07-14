@@ -1,4 +1,4 @@
-# tasks/base_task.py
+# client/tasks/base_task.py (dawniej tasks/base_task.py)
 class BaseTask:
     def __init__(self, bot):
         self.bot = bot

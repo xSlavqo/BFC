@@ -1,11 +1,10 @@
-# utils/locate.py
+# client/processing/png_locator.py
 import cv2
 import numpy as np
 import os
 import time
-from utils.mouse_actions import click as mouse_click
 
-class Locator:
+class PngLocator:
     CACHE_MARGIN = 20
 
     def __init__(self, bot):
@@ -48,14 +47,13 @@ class Locator:
     def _safe_match_template(self, screenshot_gray, template, mask=None):
         """
         Bezpieczna wersja matchTemplate, która ręcznie filtruje wyniki,
-        aby uniknąć nieskończonych lub nieprawidłowych wartości.
+        aby uniknąć nieskończonych lub nieprawidłowych wartości (inf/NaN).
         """
         res = cv2.matchTemplate(screenshot_gray, template, cv2.TM_CCOEFF_NORMED, mask=mask)
         
         best_val = -1
         best_loc = None
         
-        # Ręczne przeszukiwanie wyników z pominięciem inf/NaN
         for y in range(res.shape[0]):
             for x in range(res.shape[1]):
                 val = res[y, x]
@@ -72,7 +70,6 @@ class Locator:
             return None, None, None
 
         screenshot_np = np.array(screenshot_pil.convert('L'))
-
         best_val, best_loc, best_dims = -1, None, None
 
         for pattern in patterns_to_check:
@@ -80,7 +77,6 @@ class Locator:
             if template.shape[0] > screenshot_np.shape[0] or template.shape[1] > screenshot_np.shape[1]:
                 continue
 
-            # **KLUCZOWA ZMIANA: Użycie bezpiecznej funkcji wyszukiwania**
             max_val, max_loc = self._safe_match_template(screenshot_np, template, pattern['mask'])
 
             if max_val is not None and max_val > best_val:
@@ -94,10 +90,9 @@ class Locator:
         """Główna metoda do znajdowania wzorca z logiką cache."""
         patterns = self._prepare_patterns(pattern_path)
         if not patterns:
-            self.logger.error(f"Nie udało się załadować żadnych prawidłowych wzorców z '{pattern_path}'. Anulowanie wyszukiwania.")
             return None
 
-        # Wyszukiwanie w cache
+        # Wyszukiwanie w cache (przywrócona pętla dla 2 prób)
         if pattern_path in self.pattern_cache:
             cached_region = self.pattern_cache[pattern_path]
             for _ in range(2):
@@ -106,29 +101,25 @@ class Locator:
                     self.logger.error(f"Nie udało się pobrać zrzutu ekranu z regionu cache dla '{pattern_path}'.")
                     time.sleep(2)
                     continue
+                
                 val, loc, dims = self._search_on_screenshot(screenshot, patterns)
 
                 if val is not None and val >= threshold:
                     abs_x, abs_y = loc[0] + cached_region[0], loc[1] + cached_region[1]
                     if perform_click:
-                        center_x, center_y = abs_x + dims[0] / 2, abs_y + dims[1] / 2
-                        mouse_click(self.bot, center_x, center_y)
+                        self.bot.click(abs_x + dims[0] / 2, abs_y + dims[1] / 2)
                     return (abs_x, abs_y, dims[0], dims[1])
                 
-                time.sleep(2)
+                time.sleep(2) # Pauza przed ponowną próbą
 
         # Wyszukiwanie na pełnym ekranie
         screenshot = self.bot.screenshot_grabber.get_screenshot()
-        if not screenshot:
-            self.logger.error(f"Nie udało się pobrać pełnego zrzutu ekranu dla '{pattern_path}'. Anulowanie wyszukiwania.")
-            return None
-        val, loc, dims = self._search_on_screenshot(screenshot, patterns)
-
-        if val is not None and val >= threshold:
-            self.pattern_cache[pattern_path] = self._get_cached_search_region(loc, dims)
-            if perform_click:
-                center_x, center_y = loc[0] + dims[0] / 2, loc[1] + dims[1] / 2
-                mouse_click(self.bot, center_x, center_y)
-            return (loc[0], loc[1], dims[0], dims[1])
+        if screenshot:
+            val, loc, dims = self._search_on_screenshot(screenshot, patterns)
+            if val is not None and val >= threshold:
+                self.pattern_cache[pattern_path] = self._get_cached_search_region(loc, dims)
+                if perform_click:
+                    self.bot.click(loc[0] + dims[0] / 2, loc[1] + dims[1] / 2)
+                return (loc[0], loc[1], dims[0], dims[1])
 
         return None
