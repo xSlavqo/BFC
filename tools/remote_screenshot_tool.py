@@ -6,11 +6,44 @@ from PIL import Image
 import io
 import numpy as np
 import time
+import struct # Dodano brakujący import
+
+# --- POCZĄTEK POPRAWKI ---
+
+# Funkcje pomocnicze do obsługi protokołu komunikacyjnego z ramkowaniem wiadomości
+def _send_full_message(s, message_bytes):
+    """Pakuje i wysyła wiadomość z nagłówkiem długości."""
+    message_length = len(message_bytes)
+    s.sendall(struct.pack('!Q', message_length))
+    s.sendall(message_bytes)
+
+def _recv_full_message(s):
+    """Odbiera wiadomość z nagłówkiem długości."""
+    # Odczytaj 8-bajtowy nagłówek z długością wiadomości
+    raw_message_length = s.recv(8)
+    if not raw_message_length:
+        return None # Połączenie zamknięte
+    message_length = struct.unpack('!Q', raw_message_length)[0]
+
+    # Odczytaj dokładnie tyle bajtów, ile wskazuje nagłówek
+    data = b""
+    bytes_recd = 0
+    while bytes_recd < message_length:
+        chunk = s.recv(min(message_length - bytes_recd, 4096 * 8))
+        if not chunk:
+            raise RuntimeError("Socket connection broken")
+        data += chunk
+        bytes_recd += len(chunk)
+    return data
+
+# --- KONIEC POPRAWKI ---
+
 
 class SimpleRemoteClient:
     def __init__(self, laptop_ip, port):
         self.laptop_ip = laptop_ip
         self.port = port
+        self.timeout = 60 # Zwiększono timeout, aby pasował do innych części aplikacji
 
     def send_command(self, command_name, *args, **kwargs):
         try:
@@ -33,38 +66,41 @@ class SimpleRemoteClient:
             message = {'command': command_name, 'args': cleaned_args, 'kwargs': cleaned_kwargs}
             
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(self.timeout)
                 s.connect((self.laptop_ip, self.port))
-                s.sendall(json.dumps(message).encode('utf-8'))
                 
-                response_data = b""
-                while True:
-                    chunk = s.recv(4096 * 8) 
-                    if not chunk:
-                        break
-                    response_data += chunk
-                    try:
-                        response = json.loads(response_data.decode('utf-8'))
-                        break
-                    except json.JSONDecodeError:
-                        if not chunk:
-                            break
-                        continue 
+                # --- POCZĄTEK POPRAWKI ---
+                # Użyj funkcji _send_full_message do wysłania komendy
+                _send_full_message(s, json.dumps(message).encode('utf-8'))
                 
-                if not response_data or 'command' not in message:
+                # Użyj funkcji _recv_full_message do odebrania odpowiedzi
+                raw_response_data = _recv_full_message(s)
+                
+                if raw_response_data is None:
+                    print("Błąd: Brak odpowiedzi od serwera.")
                     return None
 
+                response = json.loads(raw_response_data.decode('utf-8'))
+                # --- KONIEC POPRAWKI ---
+                
                 if response.get('status') == 'success':
                     return response.get('result')
                 else:
+                    print(f"Błąd z serwera: {response.get('error')}")
                     return None
+
         except ConnectionRefusedError:
+            print("Błąd: Połączenie odrzucone. Upewnij się, że serwer na laptopie jest uruchomiony.")
             return None
         except socket.timeout:
+            print("Błąd: Przekroczono limit czasu połączenia.")
             return None
         except Exception as e:
+            print(f"Błąd komunikacji: {e}")
             return None
 
     def grab_screenshot_remote(self, bbox=None):
+        """Pobiera zdalny zrzut ekranu."""
         encoded_image = self.send_command('grab_screenshot', bbox=bbox)
         if encoded_image:
             try:
@@ -72,15 +108,19 @@ class SimpleRemoteClient:
                 image_stream = io.BytesIO(decoded_image)
                 return Image.open(image_stream)
             except Exception as e:
+                print(f"Błąd dekodowania obrazu: {e}")
                 return None
         return None
 
 def get_remote_screenshot_tool(laptop_ip, port):
+    """Główna funkcja narzędzia do pobierania zrzutu ekranu."""
     client = SimpleRemoteClient(laptop_ip, port)
     screenshot = client.grab_screenshot_remote(bbox=None) # Zawsze cały ekran
     if screenshot:
+        print("Zrzut ekranu pomyślnie pobrany.")
         return screenshot
     else:
+        print("Nie udało się pobrać zrzutu ekranu.")
         return None
 
 if __name__ == '__main__':
@@ -89,6 +129,8 @@ if __name__ == '__main__':
 
     full_screenshot = get_remote_screenshot_tool(LAPTOP_IP, PORT)
     if full_screenshot:
-        full_screenshot.save("remote_full_screenshot_tool.png")
-    else:
-        pass # Handle error if needed
+        try:
+            full_screenshot.save("remote_full_screenshot_tool.png")
+            print("Zrzut ekranu zapisano jako 'remote_full_screenshot_tool.png'")
+        except Exception as e:
+            print(f"Błąd podczas zapisywania pliku: {e}")
