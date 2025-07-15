@@ -624,3 +624,53 @@
 [2025-07-15 22:16:04] [ERROR] Błąd krytyczny przy uruchamianiu bota: OcrLocator.__init__() missing 1 required positional argument: 'bot'
 [2025-07-15 22:17:53] [ERROR] Błąd podczas inicjalizacji bota: OcrLocator.__init__() missing 1 required positional argument: 'bot'
 [2025-07-15 22:17:53] [ERROR] Błąd krytyczny przy uruchamianiu bota: OcrLocator.__init__() missing 1 required positional argument: 'bot'
+[2025-07-15 22:21:03] [ERROR] Błąd podczas inicjalizacji bota: OcrLocator.__init__() missing 1 required positional argument: 'bot'
+[2025-07-15 22:21:03] [ERROR] Błąd krytyczny przy uruchamianiu bota: OcrLocator.__init__() missing 1 required positional argument: 'bot'
+[2025-07-15 22:21:33] [ERROR] Błąd podczas inicjalizacji bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:21:33] [ERROR] Błąd krytyczny przy uruchamianiu bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:28:16] [ERROR] Błąd podczas inicjalizacji bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:28:16] [ERROR] Błąd krytyczny przy uruchamianiu bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:28:27] [ERROR] Błąd podczas inicjalizacji bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:28:27] [ERROR] Błąd krytyczny przy uruchamianiu bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:29:34] [ERROR] Błąd podczas inicjalizacji bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:29:34] [ERROR] Błąd krytyczny przy uruchamianiu bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:31:56] [WARNING] Menedżer OCR zainicjowany z easyocr.
+[2025-07-15 22:31:56] [ERROR] Błąd podczas inicjalizacji bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:31:56] [ERROR] Błąd krytyczny przy uruchamianiu bota: 'Bot' object has no attribute 'remote_control'
+[2025-07-15 22:35:22] [WARNING] Menedżer OCR zainicjowany z easyocr.
+[2025-07-15 22:35:22] [ERROR] Błąd podczas inicjalizacji bota: 'Logger' object has no attribute 'info'
+[2025-07-15 22:35:22] [ERROR] Błąd krytyczny przy uruchamianiu bota: 'Logger' object has no attribute 'info'
+[2025-07-15 22:36:20] [WARNING] Menedżer OCR zainicjowany z easyocr.
+[2025-07-15 22:36:20] [WARNING] Task Manager został uruchomiony.
+[2025-07-15 22:36:20] [WARNING] Zadania zostały zainicjowane.
+[2025-07-15 22:36:20] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-15 22:36:25] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-15 22:39:33] [WARNING] Menedżer OCR zainicjowany z easyocr.
+[2025-07-15 22:39:33] [WARNING] Task Manager został uruchomiony.
+[2025-07-15 22:39:33] [WARNING] Zadania zostały zainicjowane.
+[2025-07-15 22:39:33] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-15 22:39:40] [WARNING] Rozpoczynam zadanie: build_city
+[2025-07-15 22:41:08] [ERROR] Krytyczny błąd w zadaniu 'build_city': 'OcrManager' object has no attribute 'find_text'
+[2025-07-15 22:41:09] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-15 22:41:30] [ERROR] Błąd komunikacji z laptopem dla komendy 'is_process_running': [WinError 10060] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+[2025-07-15 22:41:52] [WARNING] Task Manager został zatrzymany.
+[2025-07-15 22:43:29] [WARNING] Menedżer OCR zainicjowany z easyocr.
+[2025-07-15 22:43:29] [WARNING] Task Manager został uruchomiony.
+[2025-07-15 22:43:29] [WARNING] Zadania zostały zainicjowane.
+[2025-07-15 22:43:29] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-15 22:43:50] [ERROR] Błąd komunikacji z laptopem dla komendy 'is_process_running': [WinError 10060] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+[2025-07-15 22:44:11] [ERROR] Błąd komunikacji z laptopem dla komendy 'is_process_running': [WinError 10060] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+[2025-07-15 22:44:32] [ERROR] Błąd komunikacji z laptopem dla komendy 'popen': [WinError 10060] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+[2025-07-15 22:44:45] [WARNING] Menedżer OCR zainicjowany z easyocr.
+[2025-07-15 22:44:45] [WARNING] Task Manager został uruchomiony.
+[2025-07-15 22:44:45] [WARNING] Zadania zostały zainicjowane.
+[2025-07-15 22:44:45] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-15 22:45:07] [ERROR] Błąd komunikacji z laptopem dla komendy 'is_process_running': [WinError 10060] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+[2025-07-15 22:46:16] [WARNING] Menedżer OCR zainicjowany z easyocr.
+[2025-07-15 22:46:16] [WARNING] Task Manager został uruchomiony.
+[2025-07-15 22:46:16] [WARNING] Zadania zostały zainicjowane.
+[2025-07-15 22:46:16] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...
+[2025-07-15 22:46:42] [WARNING] Menedżer OCR zainicjowany z easyocr.
+[2025-07-15 22:46:42] [WARNING] Task Manager został uruchomiony.
+[2025-07-15 22:46:42] [WARNING] Zadania zostały zainicjowane.
+[2025-07-15 22:46:42] [WARNING] Sprawdzanie stanu gry przed uruchomieniem zadania...

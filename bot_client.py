@@ -1,3 +1,4 @@
+# client/bot_client.py
 import random
 import time
 from shared.logger import Logger
@@ -15,16 +16,27 @@ class Bot:
         self.logger = Logger()
 
         try:
+            # === POPRAWIONA KOLEJNOŚĆ ===
+
+            # 1. Komunikacja
             self.remote_client = RemoteClient(laptop_ip=laptop_ip, port=port)
             self.remote_client.set_logger(self.logger)
 
+            # 2. Narzędzia zależne od komunikacji
             self.screenshot_grabber = ScreenshotGrabber(self)
             self.png_locator = PngLocator(self)
-            self.ocr_locator = OcrLocator()
 
+            # 3. Menedżer OCR (musi być przed OcrLocator)
+            self.ocr_manager = OcrManager(self)
+            
+            # 4. Lokalizator OCR (zależny od ocr_manager)
+            self.ocr_locator = OcrLocator(self)
+
+            # 5. Reszta menedżerów
             self.location_manager = LocationManager(self)
             self.game_manager = GameManager(self)
-            self.ocr_manager = OcrManager(self)
+            
+            # 6. Menedżer zadań na końcu, bo korzysta ze wszystkiego
             self.task_manager = TaskManager(self)
 
         except Exception as e:

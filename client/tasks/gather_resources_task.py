@@ -25,6 +25,7 @@ class GatherResourcesTask(BaseTask):
         self.legion_3_region = (1285, 254, 20, 22)
         self.legion_4_region = (1281, 310, 18, 23)
         self.avatars_region = (1229, 113, 128, 421)
+        self.remote_control = self.bot.remote_client
 
     def check_returned_legions(self):
         if not self.location_manager.navigate_to_city():

@@ -66,7 +66,7 @@ class BuildCityTask(BaseTask):
         if not self.location_manager.navigate_to_city():
             return False
 
-        if not self.ocr_manager.find_text("build"):
+        if not self.bot.ocr_locator.find_text("build"):
             return True
 
         if not self._enter_main_building_menu():

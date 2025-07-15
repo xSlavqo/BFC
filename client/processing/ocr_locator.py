@@ -6,11 +6,11 @@ class OcrLocator:
     def __init__(self, bot):
         self.bot = bot
         self.logger = bot.logger
-        self.remote_control = bot.remote_control
+        # POPRAWKA: Użycie właściwej nazwy atrybutu z klasy Bot
+        self.remote_control = bot.remote_client
         self.screenshot_grabber = bot.screenshot_grabber
-        self.ocr_manager = bot.ocr_manager  # Używa OcrManager
+        self.ocr_manager = bot.ocr_manager
         self.text_cache = {}
-        self.logger.info("OCR Locator zainicjowany.")
 
     def _get_cached_search_region(self, bbox):
         x_coords = [p[0] for p in bbox]
@@ -34,7 +34,6 @@ class OcrLocator:
     def find_text(self, text_to_find, click=False):
         target_word = text_to_find.lower()
         try:
-            # Wyszukiwanie w cache
             if target_word in self.text_cache:
                 region = self.text_cache[target_word]
                 screenshot = self.screenshot_grabber.get_screenshot(bbox=region)
@@ -43,17 +42,18 @@ class OcrLocator:
                     if found_bbox:
                         absolute_bbox = [[p[0] + region[0], p[1] + region[1]] for p in found_bbox]
                         center_coords = self._get_center_of_bbox(absolute_bbox)
-                        if click: self.remote_control.click(*center_coords)
+                        # POPRAWKA: Użycie poprawnej metody kliknięcia
+                        if click: self.remote_control.click_remote(*center_coords)
                         return center_coords
 
-            # Wyszukiwanie na pełnym ekranie
             full_screenshot = self.screenshot_grabber.get_screenshot()
             if full_screenshot:
                 found_bbox = self.ocr_manager.find_text_in_image(full_screenshot, target_word)
                 if found_bbox:
                     self.text_cache[target_word] = self._get_cached_search_region(found_bbox)
                     center_coords = self._get_center_of_bbox(found_bbox)
-                    if click: self.remote_control.click(*center_coords)
+                    # POPRAWKA: Użycie poprawnej metody kliknięcia
+                    if click: self.remote_control.click_remote(*center_coords)
                     return center_coords
             return None
         except Exception as e:
