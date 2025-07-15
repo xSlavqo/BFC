@@ -2,7 +2,12 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
-# Poprawione importy, aby wskazywały na katalog shared
+import sys
+import os
+
+# Dodaje główny katalog projektu do ścieżki Pythona, aby znaleźć moduł 'shared'
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from shared.remote_control import RemoteClient
 from shared.logger import Logger
 

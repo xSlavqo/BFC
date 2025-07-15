@@ -1,4 +1,10 @@
 # tools/remote_screenshot_tool.py
+import sys
+import os
+
+# Dodaje główny katalog projektu do ścieżki Pythona, aby znaleźć moduł 'shared'
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from shared.remote_control import RemoteClient
 from shared.logger import Logger
 

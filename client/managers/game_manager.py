@@ -36,14 +36,7 @@ class GameManager:
 
     def ensure_game_running(self):
         if self.is_game_running():
-            if self.location_manager.is_in_city():
-                return True
-            else:
-                if self.location_manager.navigate_to_city():
-                    return True
-                else:
-                    self.logger.error("Nie udało się nawigować do miasta po uruchomieniu gry.")
-                    return False
+            return True
 
         if not self.is_launcher_running():
             try:

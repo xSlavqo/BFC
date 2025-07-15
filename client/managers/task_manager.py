@@ -16,7 +16,7 @@ class TaskManager:
             {
                 "name": "build_city",
                 "task_object": BuildCityTask(self.bot),
-                "interval": 10, # Uruchom niemal od razu po poprzednim
+                "interval": 120, # Uruchom niemal od razu po poprzednim
                 "last_run": 0,
                 "retries_on_fail": 0,
                 "paused_until": 0

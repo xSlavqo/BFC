@@ -44,6 +44,7 @@ class BuildCityTask(BaseTask):
             time.sleep(2)
 
             if self.png_locator.find(r"png/build/enter_upgrade_menu", perform_click=True):
+                time.sleep(1)
                 continue
             elif self.png_locator.find(r"png/build/is_new_building", perform_click=False):
                 self.bot.click(210, 570)

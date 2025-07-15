@@ -1,85 +1,114 @@
-# server_app.py
+# shared/remote_control.py
 import socket
 import json
-import time
+import base64
+from PIL import Image
+import io
+import numpy as np
 import struct
-from shared.logger import Logger
-# --- PRZYWRÓCONO POPRZEDNI IMPORT ---
-import server.remote_actions as remote_actions
 
-logger = Logger(filename="server.log")
-HOST = '0.0.0.0'
-PORT = 65432
+class RemoteClient:
+    def __init__(self, laptop_ip, port):
+        self.laptop_ip = laptop_ip
+        self.port = port
+        self.logger = None 
+        self.timeout = 60
 
-# Mapa komend do funkcji - przywrócono oryginalny zapis
-COMMAND_HANDLERS = {
-    'click': remote_actions.click,
-    'move_to': remote_actions.move_to,
-    'press': remote_actions.press,
-    'grab_screenshot': remote_actions.grab_screenshot,
-    'is_process_running': remote_actions.is_process_running,
-    'activate_window': remote_actions.activate_window,
-    'popen': remote_actions.popen,
-    'run_command': remote_actions.run_command,
-}
+    def set_logger(self, logger):
+        self.logger = logger
 
-def send_full_message(conn, message_bytes):
-    message_length = len(message_bytes)
-    conn.sendall(struct.pack('!Q', message_length))
-    conn.sendall(message_bytes)
+    def _send_full_message(self, s, message_bytes):
+        message_length = len(message_bytes)
+        s.sendall(struct.pack('!Q', message_length))
+        s.sendall(message_bytes)
 
-def recv_full_message(conn):
-    raw_message_length = conn.recv(8)
-    if not raw_message_length:
+    def _recv_full_message(self, s):
+        raw_message_length = s.recv(8)
+        if not raw_message_length:
+            return None
+        message_length = struct.unpack('!Q', raw_message_length)[0]
+        data = b""
+        bytes_recd = 0
+        while bytes_recd < message_length:
+            chunk = s.recv(min(message_length - bytes_recd, 4096 * 8))
+            if not chunk:
+                raise RuntimeError("Socket connection broken by server")
+            data += chunk
+            bytes_recd += len(chunk)
+        return data
+
+    def send_command(self, command_name, *args, **kwargs):
+        try:
+            # --- POCZĄTEK POPRAWKI ---
+            # Rozszerzona logika czyszczenia argumentów przed serializacją do JSON.
+            # Konwertuje typy NumPy na standardowe typy Pythona.
+            cleaned_kwargs = {}
+            for k, v in kwargs.items():
+                if k == 'bbox' and v is not None:
+                    # Jawnie konwertuj każdy element krotki bbox na int
+                    cleaned_kwargs[k] = tuple(int(x) for x in v)
+                elif isinstance(v, np.integer):
+                    cleaned_kwargs[k] = int(v)
+                else:
+                    cleaned_kwargs[k] = v
+            
+            cleaned_args = [int(arg) if isinstance(arg, np.integer) else arg for arg in args]
+            # --- KONIEC POPRAWKI ---
+            
+            message = {'command': command_name, 'args': cleaned_args, 'kwargs': cleaned_kwargs}
+            
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(self.timeout)
+                s.connect((self.laptop_ip, self.port))
+                
+                self._send_full_message(s, json.dumps(message).encode('utf-8'))
+                raw_response_data = self._recv_full_message(s)
+                
+                if raw_response_data is None:
+                    if self.logger: self.logger.error(f"Brak odpowiedzi od laptopa dla komendy '{command_name}'.")
+                    return None
+
+                response = json.loads(raw_response_data.decode('utf-8'))
+                
+                if response.get('status') == 'success':
+                    return response.get('result')
+                else:
+                    if self.logger: self.logger.error(f"Błąd z laptopa dla komendy '{command_name}': {response.get('error')}")
+                    return None
+        except Exception as e:
+            if self.logger: self.logger.error(f"Błąd komunikacji z laptopem dla komendy '{command_name}': {e}")
+            return None
+
+    def click_remote(self, x, y):
+        return self.send_command('click', x, y)
+
+    def move_to_remote(self, x, y, duration=0.1):
+        return self.send_command('move_to', x, y, duration=duration)
+
+    def press_remote(self, key):
+        return self.send_command('press', key)
+    
+    def grab_screenshot_remote(self, bbox=None):
+        # Przekazujemy bbox do send_command, które teraz go oczyści
+        encoded_image = self.send_command('grab_screenshot', bbox=bbox)
+        if encoded_image:
+            try:
+                decoded_image = base64.b64decode(encoded_image)
+                image_stream = io.BytesIO(decoded_image)
+                return Image.open(image_stream)
+            except Exception as e:
+                if self.logger: self.logger.error(f"Błąd dekodowania zrzutu ekranu: {e}")
+                return None
         return None
-    message_length = struct.unpack('!Q', raw_message_length)[0]
-    data = b""
-    bytes_recd = 0
-    while bytes_recd < message_length:
-        chunk = conn.recv(min(message_length - bytes_recd, 4096 * 8))
-        if not chunk:
-            raise RuntimeError("Socket connection broken")
-        data += chunk
-        bytes_recd += len(chunk)
-    return data
 
-def handle_connection(conn, addr):
-    logger.warning(f"Połączono z {addr}")
-    try:
-        raw_command_data = recv_full_message(conn)
-        if raw_command_data is None:
-            logger.warning(f"Połączenie z {addr} zostało zamknięte przed odebraniem komendy.")
-            return
+    def is_process_running_remote(self, process_name):
+        return self.send_command('is_process_running', process_name)
 
-        command_data = json.loads(raw_command_data.decode('utf-8'))
-        command_name = command_data.get('command')
-        args = command_data.get('args', [])
-        kwargs = command_data.get('kwargs', {})
+    def activate_window_remote(self, window_title):
+        return self.send_command('activate_window', window_title)
 
-        handler = COMMAND_HANDLERS.get(command_name)
-        if handler:
-            result = handler(*args, **kwargs)
-            response = {'status': 'success', 'result': result}
-        else:
-            response = {'status': 'error', 'error': f'Unknown command: {command_name}'}
+    def popen_remote(self, command_list):
+        return self.send_command('popen', command_list)
 
-    except Exception as e:
-        logger.error(f"Błąd podczas obsługi komendy od {addr}: {e}")
-        response = {'status': 'error', 'error': str(e)}
-
-    response_bytes = json.dumps(response).encode('utf-8')
-    send_full_message(conn, response_bytes)
-
-def start_server():
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        s.bind((HOST, PORT))
-        s.listen()
-        logger.warning(f"Serwer nasłuchuje na {HOST}:{PORT}")
-        while True:
-            conn, addr = s.accept()
-            with conn:
-                handle_connection(conn, addr)
-
-if __name__ == '__main__':
-    start_server()
+    def run_command_remote(self, command_list):
+        return self.send_command('run_command', command_list)
