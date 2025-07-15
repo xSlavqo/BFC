@@ -1,6 +1,6 @@
 # tools/region_selector_tool.py
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 from PIL import Image, ImageTk
 import sys
 import os
@@ -23,8 +23,9 @@ class RegionSelectorApp:
         self.start_x = None
         self.start_y = None
         self.current_rect_id = None
-        self.selected_regions = []
+        self.selected_regions = []  # Teraz będzie przechowywać słowniki z regionami i nazwami zmiennych
         self.rect_ids = []
+        self.region_variables = {}  # Słownik do mapowania współrzędnych na nazwy zmiennych
 
         self.original_image = None
         self.tk_image = None
@@ -55,7 +56,10 @@ class RegionSelectorApp:
         self.button_reset_zoom = tk.Button(self.button_frame, text="Resetuj widok", command=self.reset_view)
         self.button_reset_zoom.pack(side=tk.LEFT, padx=5)
 
-        self.button_confirm = tk.Button(self.button_frame, text="Potwierdź", command=self.confirm_selection)
+        self.button_assign = tk.Button(self.button_frame, text="Przypisz zmienne", command=self.assign_variables)
+        self.button_assign.pack(side=tk.LEFT, padx=5)
+
+        self.button_confirm = tk.Button(self.button_frame, text="Potwierdź i zakończ", command=self.confirm_selection)
         self.button_confirm.pack(side=tk.RIGHT, padx=5)
 
         # Bindings
@@ -104,14 +108,21 @@ class RegionSelectorApp:
             self.canvas.delete(rect_id)
         self.rect_ids.clear()
         
-        for region in self.selected_regions:
-            x1, y1, x2, y2 = region
+        for region_data in self.selected_regions:
+            region = region_data['coords']
+            var_name = region_data.get('var_name', '')
+            x, y, width, height = region
             # Konwersja współrzędnych oryginalnego obrazu na współrzędne przybliżonego płótna
-            zx1 = x1 * self.zoom_level
-            zy1 = y1 * self.zoom_level
-            zx2 = x2 * self.zoom_level
-            zy2 = y2 * self.zoom_level
-            rect_id = self.canvas.create_rectangle(zx1, zy1, zx2, zy2, outline="red", width=2)
+            zx = x * self.zoom_level
+            zy = y * self.zoom_level
+            z_width = width * self.zoom_level
+            z_height = height * self.zoom_level
+            rect_id = self.canvas.create_rectangle(zx, zy, zx+z_width, zy+z_height, outline="red", width=2)
+            
+            # Dodaj etykietę z nazwą zmiennej, jeśli istnieje
+            if var_name:
+                self.canvas.create_text(zx, zy-10, anchor=tk.NW, text=var_name, fill="red")
+            
             self.rect_ids.append(rect_id)
 
     def on_button_press(self, event):
@@ -134,12 +145,12 @@ class RegionSelectorApp:
             end_x = self.canvas.canvasx(event.x) / self.zoom_level
             end_y = self.canvas.canvasy(event.y) / self.zoom_level
 
-            x1 = min(self.start_x, end_x)
-            y1 = min(self.start_y, end_y)
-            x2 = max(self.start_x, end_x)
-            y2 = max(self.start_y, end_y)
+            x = min(self.start_x, end_x)
+            y = min(self.start_y, end_y)
+            width = abs(end_x - self.start_x)
+            height = abs(end_y - self.start_y)
             
-            new_region = (int(x1), int(y1), int(x2), int(y2))
+            new_region = {'coords': (int(x), int(y), int(width), int(height)), 'var_name': ''}
             self.selected_regions.append(new_region)
             self.logger.warning(f"Dodano nowy region: {new_region}")
             self.update_label()
@@ -170,7 +181,6 @@ class RegionSelectorApp:
         self.canvas.xview_scroll(int((x * (self.zoom_level - old_zoom)) / old_zoom), "units")
         self.canvas.yview_scroll(int((y * (self.zoom_level - old_zoom)) / old_zoom), "units")
 
-
     def on_pan_start(self, event):
         self.canvas.scan_mark(event.x, event.y)
 
@@ -197,17 +207,78 @@ class RegionSelectorApp:
 
     def update_label(self):
         count = len(self.selected_regions)
-        self.label_coords.config(text=f"Liczba zaznaczonych regionów: {count}")
+        assigned = sum(1 for r in self.selected_regions if r.get('var_name'))
+        self.label_coords.config(text=f"Liczba zaznaczonych regionów: {count} (przypisane zmienne: {assigned})")
+
+    def assign_variables(self):
+        if not self.selected_regions:
+            messagebox.showwarning("Brak regionów", "Nie zaznaczono żadnych regionów.")
+            return
+
+        for i, region_data in enumerate(self.selected_regions):
+            region = region_data['coords']
+            current_var = region_data.get('var_name', '')
+            
+            # Pokaż okno dialogowe z prośbą o nazwę zmiennej
+            var_name = simpledialog.askstring(
+                "Przypisz zmienną",
+                f"Podaj nazwę zmiennej dla regionu {i+1} (x={region[0]}, y={region[1]}, width={region[2]}, height={region[3]}):",
+                initialvalue=current_var,
+                parent=self.master
+            )
+            
+            if var_name is not None:  # Użytkownik nie anulował
+                region_data['var_name'] = var_name.strip()
+                self.logger.warning(f"Przypisano zmienną '{var_name}' do regionu {region}")
+
+        self.redraw_rectangles()
+        self.update_label()
 
     def confirm_selection(self):
-        if self.selected_regions:
-            regions_str = "\n".join([str(r) for r in self.selected_regions])
-            # Zwracanie danych przez zamknięcie i opcjonalne zapisanie do pliku/konsoli
-            print("Selected Regions:", regions_str) 
-            messagebox.showinfo("Potwierdzono", f"Wybrane regiony:\n{regions_str}")
-            self.master.destroy()
-        else:
+        if not self.selected_regions:
             messagebox.showwarning("Brak wyboru", "Proszę najpierw zaznaczyć przynajmniej jeden region.")
+            return
+
+        # Sprawdź, czy wszystkie regiony mają przypisane zmienne
+        missing_vars = [i+1 for i, r in enumerate(self.selected_regions) if not r.get('var_name')]
+        if missing_vars:
+            if messagebox.askyesno(
+                "Brakujące zmienne",
+                f"Następujące regiony nie mają przypisanych zmiennych: {', '.join(map(str, missing_vars))}\n"
+                "Czy na pewno chcesz kontynuować bez przypisania wszystkich zmiennych?"
+            ):
+                pass  # Kontynuuj mimo braku niektórych zmiennych
+            else:
+                return  # Anuluj potwierdzenie
+
+        # Przygotuj dane wyjściowe w formacie (x, y, width, height)
+        output = []
+        for region_data in self.selected_regions:
+            x, y, width, height = region_data['coords']
+            var_name = region_data.get('var_name', '')
+            if var_name:
+                output.append(f"{var_name} = ({x}, {y}, {width}, {height})")
+            else:
+                output.append(f"# Nieprzypisany region: ({x}, {y}, {width}, {height})")
+
+        output_str = "\n".join(output)
+        
+        # Zapisz do schowka (opcjonalnie)
+        self.master.clipboard_clear()
+        self.master.clipboard_append(output_str)
+        
+        # Pokaż podsumowanie
+        messagebox.showinfo(
+            "Potwierdzono wybór",
+            f"Gotowa lista regionów:\n\n{output_str}\n\n"
+            "Dane zostały skopiowane do schowka. Możesz je teraz wkleić do swojego kodu."
+        )
+        
+        # Wydrukuj w konsoli dla łatwiejszego kopiowania
+        print("\nGotowa lista regionów do użycia w kodzie:")
+        print(output_str)
+        
+        self.master.destroy()
 
 if __name__ == '__main__':
     LAPTOP_IP = '192.168.1.11' # Pamiętaj, aby ustawić prawidłowy adres IP
