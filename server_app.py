@@ -1,10 +1,10 @@
+# server/main.py
 import socket
 import json
 import struct
-from shared.logger import Logger
+import time
 import server.remote_actions as remote_actions
 
-logger = Logger()
 HOST = '0.0.0.0'
 PORT = 65432
 
@@ -39,46 +39,40 @@ def recv_full_message(conn):
             data += chunk
             bytes_recd += len(chunk)
         return data
-    except Exception as e:
-        logger.error(f"Błąd podczas odbierania danych: {e}")
+    except (ConnectionResetError, RuntimeError):
         raise
 
 def handle_connection(conn, addr):
     try:
         raw_command_data = recv_full_message(conn)
         if raw_command_data is None:
-            logger.warning(f"Brak danych od {addr} – klient rozłączył się.")
             return
 
-        try:
-            command_data = json.loads(raw_command_data.decode('utf-8'))
-        except json.JSONDecodeError as e:
-            logger.error(f"Nieprawidłowy JSON od {addr}: {e}")
-            response = {'status': 'error', 'error': 'Invalid JSON'}
-            send_full_message(conn, json.dumps(response).encode('utf-8'))
-            return
-
+        command_data = json.loads(raw_command_data.decode('utf-8'))
         command_name = command_data.get('command')
         args = command_data.get('args', [])
         kwargs = command_data.get('kwargs', {})
 
         handler = COMMAND_HANDLERS.get(command_name)
         if handler:
-            try:
-                result = handler(*args, **kwargs)
-                response = {'status': 'success', 'result': result}
-            except Exception as e:
-                logger.error(f"Błąd w trakcie wykonania komendy '{command_name}' od {addr}: {e}")
-                response = {'status': 'error', 'error': str(e)}
+            result = handler(*args, **kwargs)
+            response = {'status': 'success', 'result': result}
         else:
-            logger.warning(f"Nieznana komenda '{command_name}' od {addr}")
             response = {'status': 'error', 'error': f'Unknown command: {command_name}'}
 
         response_bytes = json.dumps(response).encode('utf-8')
         send_full_message(conn, response_bytes)
 
+    except json.JSONDecodeError:
+        response = {'status': 'error', 'error': 'Invalid JSON'}
+        send_full_message(conn, json.dumps(response).encode('utf-8'))
     except Exception as e:
-        logger.error(f"Błąd podczas obsługi połączenia z {addr}: {e}")
+        try:
+            response = {'status': 'error', 'error': str(e)}
+            response_bytes = json.dumps(response).encode('utf-8')
+            send_full_message(conn, response_bytes)
+        except Exception:
+            pass
 
 def start_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -86,12 +80,13 @@ def start_server():
         s.bind((HOST, PORT))
         s.listen()
         while True:
-            try:
-                conn, addr = s.accept()
-                with conn:
-                    handle_connection(conn, addr)
-            except Exception as e:
-                logger.error(f"Błąd przy akceptowaniu połączenia: {e}")
+            conn, addr = s.accept()
+            with conn:
+                handle_connection(conn, addr)
 
 if __name__ == '__main__':
-    start_server()
+    while True:
+        try:
+            start_server()
+        except Exception:
+            time.sleep(5)

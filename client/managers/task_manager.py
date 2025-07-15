@@ -1,7 +1,8 @@
-# client/managers/task_manager.py (dawniej managers/task_manager.py)
+# client/managers/task_manager.py
 import time
 from client.tasks.build_city_task import BuildCityTask
 from client.tasks.example_task import ExampleTask
+from client.tasks.train_units_task import TrainUnitsTask
 
 class TaskManager:
     def __init__(self, bot):
@@ -17,6 +18,14 @@ class TaskManager:
                 "name": "build_city",
                 "task_object": BuildCityTask(self.bot),
                 "interval": 120, # Uruchom niemal od razu po poprzednim
+                "last_run": 0,
+                "retries_on_fail": 0,
+                "paused_until": 0
+            },
+            {
+                "name": "train_units",
+                "task_object": TrainUnitsTask(self.bot),
+                "interval": 30, # Co 30 sekund
                 "last_run": 0,
                 "retries_on_fail": 0,
                 "paused_until": 0
@@ -63,9 +72,15 @@ class TaskManager:
         elif result is False:
             task_def['retries_on_fail'] += 1
             if task_def['retries_on_fail'] == 1:
-                self.logger.warning(f"Zadanie '{task_name}' zawiodło. Ponawiam próbę natychmiast.")
+                self.logger.warning(f"Zadanie '{task_name}' zawiodło. Próba restartu gry i ponowienia zadania.")
+                if self.bot.game_manager.close_game():
+                    self.logger.warning("Gra została zamknięta. Czekam 10 sekund przed ponowieniem.")
+                    time.sleep(10)
+                else:
+                    self.logger.error("Nie udało się zamknąć gry. Zadanie zostanie wyłączone.")
+                    self.disabled_tasks.add(task_name)
             else:
-                self.logger.error(f"Zadanie '{task_name}' ponownie zawiodło. Wyłączam.")
+                self.logger.error(f"Zadanie '{task_name}' ponownie zawiodło po restarcie. Wyłączam.")
                 self.disabled_tasks.add(task_name)
 
     def _execute_task(self, task_def, now):
