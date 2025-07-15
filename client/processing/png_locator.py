@@ -63,7 +63,7 @@ class PngLocator:
         
         return best_val, best_loc
 
-    def _search_on_screenshot(self, screenshot_pil, patterns_to_check):
+    def _search_on_screenshot(self, screenshot_pil, patterns_to_check, region=None):
         """Przeszukuje podany zrzut ekranu w poszukiwaniu wzorców."""
         if not screenshot_pil:
             self.logger.error("Otrzymano pusty zrzut ekranu (None). Przeszukiwanie niemożliwe.")
@@ -84,42 +84,31 @@ class PngLocator:
                 best_loc = max_loc
                 best_dims = pattern['dims']
 
-        return best_val, best_loc, best_dims
+        if best_loc and region:
+            # Konwersja lokalizacji z powrotem na współrzędne globalne
+            global_x = best_loc[0] + region[0]
+            global_y = best_loc[1] + region[1]
+            best_loc = (global_x, global_y)
 
-    def find(self, pattern_path, threshold=0.95, perform_click=True):
-        """Główna metoda do znajdowania wzorca z logiką cache."""
+        return best_val, best_loc, best_dims,
+
+    def find(self, pattern_path, threshold=0.95, perform_click=True, region=None):
+        """
+        Zmodyfikowana metoda 'find' z obsługą regionu.
+        """
         patterns = self._prepare_patterns(pattern_path)
         if not patterns:
             return None
+        
+        screenshot = self.bot.screenshot_grabber.get_screenshot(bbox=region)
+        if not screenshot:
+            self.logger.error(f"Nie udało się pobrać zrzutu ekranu dla regionu: {region}")
+            return None
 
-        # Wyszukiwanie w cache (przywrócona pętla dla 2 prób)
-        if pattern_path in self.pattern_cache:
-            cached_region = self.pattern_cache[pattern_path]
-            for _ in range(2):
-                screenshot = self.bot.screenshot_grabber.get_screenshot(bbox=cached_region)
-                if not screenshot:
-                    self.logger.error(f"Nie udało się pobrać zrzutu ekranu z regionu cache dla '{pattern_path}'.")
-                    time.sleep(2)
-                    continue
-                
-                val, loc, dims = self._search_on_screenshot(screenshot, patterns)
-
-                if val is not None and val >= threshold:
-                    abs_x, abs_y = loc[0] + cached_region[0], loc[1] + cached_region[1]
-                    if perform_click:
-                        self.bot.click(abs_x + dims[0] / 2, abs_y + dims[1] / 2)
-                    return (abs_x, abs_y, dims[0], dims[1])
-                
-                time.sleep(2) # Pauza przed ponowną próbą
-
-        # Wyszukiwanie na pełnym ekranie
-        screenshot = self.bot.screenshot_grabber.get_screenshot()
-        if screenshot:
-            val, loc, dims = self._search_on_screenshot(screenshot, patterns)
-            if val is not None and val >= threshold:
-                self.pattern_cache[pattern_path] = self._get_cached_search_region(loc, dims)
-                if perform_click:
-                    self.bot.click(loc[0] + dims[0] / 2, loc[1] + dims[1] / 2)
-                return (loc[0], loc[1], dims[0], dims[1])
+        val, loc, dims = self._search_on_screenshot(screenshot, patterns, region)
+        if val is not None and val >= threshold:
+            if perform_click and loc:
+                self.bot.click(loc[0] + dims[0] / 2, loc[1] + dims[1] / 2)
+            return (loc[0], loc[1], dims[0], dims[1]) if loc else None
 
         return None

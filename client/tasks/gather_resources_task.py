@@ -1,6 +1,8 @@
 # client/tasks/gather_resources_task.py
 import sys
 import os
+import cv2
+import numpy as np
 import re
 
 # Dodanie ścieżki projektu do sys.path, aby umożliwić importy
@@ -12,26 +14,43 @@ if project_root not in sys.path:
 from client.tasks.base_task import BaseTask
 
 class GatherResourcesTask(BaseTask):
-    def __init__(self, game_manager, task_manager):
-        super().__init__(game_manager, task_manager)
+    def __init__(self, bot):
+        super().__init__(bot)
         self.max_legions = 0
         self.current_legions = 0
         self.least_resource = None
-        self.hero_avatars = 0
+        self.legion_avatars = {}
+        self.legion_1_region = (1316, 139, 20, 24)
+        self.legion_2_region = (1297, 196, 21, 23)
+        self.legion_3_region = (1285, 254, 20, 22)
+        self.legion_4_region = (1281, 310, 18, 23)
+        self.avatars_region = (1229, 113, 128, 421)
 
     def check_returned_legions(self):
-        try:
-            self.location_manager.navigate_to_city()
-            if self.max_legions == 0:
-                return 1
-            else:
-                # Logika sprawdzania, ile legionów wróciło
-                # i zwrócenie tej liczby
-                returned_legions = 0
-                return returned_legions
-        except Exception as e:
-            self.logger.critical(f"Error in check_returned_legions: {e}")
-            return 0
+        if not self.location_manager.navigate_to_city():
+            return False #nie udało się przejść do miasta, błąd zadania
+
+        if self.max_legions == 0:
+            self.logger.warning("Brak informacji o maksymalnej liczbie legionów, zakładam, że można wysłać jeden.")
+            return 1
+
+        legions_that_returned = []
+        # Iteracja po kopii, aby móc bezpiecznie usuwać elementy
+        for legion_id, avatar_image in list(self.legion_avatars.items()):
+            # Konwersja obrazu avatara na ścieżkę pliku tymczasowego
+            avatar_path = f"temp_avatar_{legion_id}.png"
+            avatar_image.save(avatar_path)
+            
+            # Użycie PngLocator do sprawdzenia obecności avatara
+            if not self.png_locator.find(avatar_path, threshold=0.95, perform_click=False, region=self.avatars_region):
+                legions_that_returned.append(legion_id)  # Legion wrócił
+            os.remove(avatar_path)
+        if legions_that_returned:
+            self.logger.warning(f"Wykryto powrót legionów: {legions_that_returned}.")
+            for legion_id in legions_that_returned:
+                del self.legion_avatars[legion_id]
+                self.current_legions -= 1
+        return len(legions_that_returned)
 
     def check_least_resource(self):
         try:
@@ -39,7 +58,7 @@ class GatherResourcesTask(BaseTask):
             # i aktualizacja self.least_resource
             pass
         except Exception as e:
-            self.logger.critical(f"Error in check_least_resource: {e}")
+            self.logger.error(f"Błąd podczas próby sprawdzenia najmniejszego surowca: {e}")
 
     def find_resource(self):
         try:
@@ -64,7 +83,7 @@ class GatherResourcesTask(BaseTask):
             
             return False
         except Exception as e:
-            self.logger.critical(f"Error in find_resource: {e}")
+            self.logger.error(f"Błąd podczas próby znalezienia surowców: {e}")
             return False
 
     def read_legion_count(self):
@@ -77,7 +96,7 @@ class GatherResourcesTask(BaseTask):
             if match:
                 self.current_legions = int(match.group(1))
                 self.max_legions = int(match.group(2))
-                self.logger.info(f"Odczytano legiony: {self.current_legions}/{self.max_legions}")
+                self.logger.warning(f"Odczytano legiony: {self.current_legions}/{self.max_legions}")
                 return True
             else:
                 numbers = re.findall(r'\d+', text)
@@ -87,26 +106,52 @@ class GatherResourcesTask(BaseTask):
                     self.logger.info(f"Odczytano legiony (alternatywnie): {self.current_legions}/{self.max_legions}")
                     return True
                 else:
-                    self.logger.critical(f"Could not parse legion count from OCR text: '{text}'")
+                    self.logger.error(f"Nie udało się sparsować liczby legionów z tekstu OCR: '{text}'")
                     return False
         except Exception as e:
-            self.logger.critical(f"Error in read_legion_count: {e}")
+            self.logger.critical(f"Błąd podczas odczytu legionów: {e}")
             return False
 
     def send_legion_to_gather(self):
-        try:
-            if self.current_legions < self.max_legions:
-                # Logika wysyłania legionu
-                self.update_avatar_count()
-        except Exception as e:
-            self.logger.critical(f"Error in send_legion_to_gather: {e}")
+        if self.current_legions < self.max_legions:
+            if not self.png_locator.click_on_png(r'png\gather_resources\create_legion.png'):
+                self.logger.error("Nie można kliknąć przycisku 'Create Legion'.")
+                return False
+            if not self.png_locator.click_on_png(r'png\gather_resources\march.png'):
+                self.logger.error("Nie można kliknąć przycisku 'March'.")
+                return False
+            self.current_legions += 1
+            self.logger.info(f"Legion wysłany do zbierania surowców. Aktualna liczba legionów: {self.current_legions}/{self.max_legions}")
+            self.update_avatar_count()
+            return True
 
     def update_avatar_count(self):
-        try:
-            # Logika aktualizacji self.hero_avatars
-            pass
-        except Exception as e:
-            self.logger.critical(f"Error in update_avatar_count: {e}")
+        """
+        Robi zrzuty ekranu awatarów dla wszystkich aktualnie wysłanych legionów
+        i przechowuje je w self.legion_avatars.
+        """
+        self.logger.warning(f"Aktualizacja awatarów dla {self.current_legions} legionów.")
+        self.legion_avatars.clear()
+
+        region_map = {
+            1: self.legion_1_region,
+            2: self.legion_2_region,
+            3: self.legion_3_region,
+            4: self.legion_4_region,
+        }
+
+        for i in range(1, self.current_legions + 1):
+            region = region_map.get(i)
+            if not region:
+                self.logger.error(f"Brak zdefiniowanego regionu dla legionu nr {i}.")
+                continue
+            
+            try:
+                avatar_image = self.bot.screenshot_grabber.get_screenshot(bbox=region)
+                if avatar_image:
+                    self.legion_avatars[i] = avatar_image
+            except Exception as e:
+                self.logger.error(f"Wystąpił wyjątek podczas przechwytywania awatara dla legionu {i}: {e}")
 
     def execute(self):
         try:
@@ -118,4 +163,3 @@ class GatherResourcesTask(BaseTask):
                         self.send_legion_to_gather()
         except Exception as e:
             self.logger.critical(f"Critical error in GatherResourcesTask execute: {e}")
-
