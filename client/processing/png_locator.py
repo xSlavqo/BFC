@@ -85,30 +85,36 @@ class PngLocator:
                 best_dims = pattern['dims']
 
         if best_loc and region:
-            # Konwersja lokalizacji z powrotem na współrzędne globalne
             global_x = best_loc[0] + region[0]
             global_y = best_loc[1] + region[1]
             best_loc = (global_x, global_y)
 
         return best_val, best_loc, best_dims,
 
-    def find(self, pattern_path, threshold=0.95, perform_click=True, region=None):
+    def find(self, pattern_path, threshold=0.95, perform_click=True, region=None, timeout=2):
         """
-        Zmodyfikowana metoda 'find' z obsługą regionu.
+        Wyszukuje wzorzec na ekranie, ponawiając próbę przez określony czas (timeout).
         """
         patterns = self._prepare_patterns(pattern_path)
         if not patterns:
             return None
-        
-        screenshot = self.bot.screenshot_grabber.get_screenshot(bbox=region)
-        if not screenshot:
-            self.logger.error(f"Nie udało się pobrać zrzutu ekranu dla regionu: {region}")
-            return None
 
-        val, loc, dims = self._search_on_screenshot(screenshot, patterns, region)
-        if val is not None and val >= threshold:
-            if perform_click and loc:
-                self.bot.click(loc[0] + dims[0] / 2, loc[1] + dims[1] / 2)
-            return (loc[0], loc[1], dims[0], dims[1]) if loc else None
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            screenshot = self.bot.screenshot_grabber.get_screenshot(bbox=region)
+            if not screenshot:
+                self.logger.error(f"Nie udało się pobrać zrzutu ekranu dla regionu: {region}")
+                time.sleep(0.5)
+                continue
+
+            val, loc, dims = self._search_on_screenshot(screenshot, patterns, region)
+            if val is not None and val >= threshold:
+                if perform_click and loc:
+                    center_x = loc[0] + dims[0] / 2
+                    center_y = loc[1] + dims[1] / 2
+                    self.bot.click(center_x, center_y)
+                return (loc[0], loc[1], dims[0], dims[1]) if loc else None
+            
+            time.sleep(0.2) # Krótka pauza przed kolejną próbą
 
         return None

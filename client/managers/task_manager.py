@@ -1,8 +1,8 @@
 # client/managers/task_manager.py
 import time
 from client.tasks.build_city_task import BuildCityTask
-from client.tasks.example_task import ExampleTask
 from client.tasks.train_units_task import TrainUnitsTask
+from client.tasks.gather_resources_task import GatherResourcesTask
 
 class TaskManager:
     def __init__(self, bot):
@@ -30,15 +30,14 @@ class TaskManager:
                 "retries_on_fail": 0,
                 "paused_until": 0
             },
-            # Możesz dodać więcej zadań, np. ExampleTask
-            # {
-            #     "name": "example_task",
-            #     "task_object": ExampleTask(self.bot),
-            #     "interval": 60, # Co 60 sekund
-            #     "last_run": 0,
-            #     "retries_on_fail": 0,
-            #     "paused_until": 0
-            # },
+            {
+                "name": "gather_resources",
+                "task_object": GatherResourcesTask(self.bot),
+                "interval": 60, # Co minutę
+                "last_run": 0,
+                "retries_on_fail": 0,
+                "paused_until": 0
+            }
         ]
         self.logger.warning("Zadania zostały zainicjowane.")
 

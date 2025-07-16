@@ -57,7 +57,7 @@ class OcrLocator:
                     return center_coords
             return None
         except Exception as e:
-            self.logger.critical(f"Błąd w OcrLocator find_text: {e}")
+            self.logger.error(f"Błąd w OcrLocator find_text: {e}")
             return None
 
     def read_text_from_screen_region(self, region):
@@ -67,5 +67,5 @@ class OcrLocator:
                 return self.ocr_manager.read_text_from_image_region(screenshot, region)
             return ""
         except Exception as e:
-            self.logger.critical(f"Błąd w read_text_from_screen_region: {e}")
+            self.logger.error(f"Błąd w read_text_from_screen_region: {e}")
             return ""
